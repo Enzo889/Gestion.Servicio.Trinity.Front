@@ -1,5 +1,6 @@
 import axiosInstance from "../../config/axiosConfig";
 import axios from "axios";
+import axiosPublic from "../../config/axiosConfigPublic";
 import { LoginRequestDto } from "../../core/models/dto/LoginRequestDto";
 import { AuthResponseDto } from "../../core/models/dto/AuthResponseDto";
 import { ForgotPassDto } from "../../core/models/dto/ForgotPassDto";
@@ -42,7 +43,7 @@ const AuthService = {
   // Funcion para recuperar contraseña
   async recoverPassword(credentials: ForgotPassDto): Promise<void> {
     try {
-      const response = await axiosInstance.post<WebApiResponse<void>>("/auth/forgot", credentials);
+      const response = await axiosPublic.post<WebApiResponse<void>>("/auth/forgot", credentials);
       const {success, message} = response.data
       
       if (!success) {
@@ -62,7 +63,7 @@ const AuthService = {
   // Funcion para cambiar contraseña
   async changePassword(credentials: RecoverPassDto): Promise<void> {
     try {
-      const response = await axiosInstance.post<WebApiResponse<void>>("/auth/reset",credentials);
+      const response = await axiosPublic.post<WebApiResponse<void>>("/auth/reset",credentials);
       const {success, message} = response.data
       
       if (!success) {
